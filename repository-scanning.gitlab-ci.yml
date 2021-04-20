@@ -23,7 +23,7 @@ variables:
   allow_failure: true
   artifacts:
     reports:
-      repository_scanning: gl-repository-scanning-report.json
+      dependency_scanning: gl-repository-scanning-report.json
   cache:
     paths:
       - .trivycache/
