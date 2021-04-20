@@ -13,7 +13,7 @@ What this tool does:
     2. Checks Gitlab for open issues
     3. Create new issue if no issue matching is open
 3. Notify on Slack with a short summary about newly introduced vulnerabilities, which are fixable by an upgrade
-
+4. Auto close issues if CVE for an environment is no longer present in the results.
 
 
 

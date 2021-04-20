@@ -1,7 +1,7 @@
 import {ArgumentParser} from 'argparse'
 import {readFileSync} from 'fs'
 import ITrivyResult from "./models/ITrivyResult"
-import {handleVulnerability} from "./gitlab"
+import {closeResolvedVulnerabilities, handleVulnerability} from "./gitlab"
 import IVulnerabilityCount from "./models/IVulnerabilityCount"
 import {notify} from "./notify";
 
@@ -24,14 +24,16 @@ import {notify} from "./notify";
         High: 0,
         Critical: 0,
     }
+
     for (const vuln of vulnerabilityList.vulnerabilities) {
         if (vuln.solution !== "No solution provided") {// only issue which can be fixed!
             const severity = await handleVulnerability(args.image, args.component, args.environment, vuln)
-            if (severity) {
+            if (severity !== null ) {
                 newVulnerabilities[severity] += 1
             }
         }
     }
     await notify(args.image, args.component, args.environment, newVulnerabilities)
+    await closeResolvedVulnerabilities(args.component,args.environment,vulnerabilityList.vulnerabilities)
     process.exit(0)
 })()
