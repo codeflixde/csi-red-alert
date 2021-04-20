@@ -22,7 +22,7 @@ variables:
         --output "$CI_PROJECT_DIR/gl-container-scanning-report.json" "$FULL_IMAGE_NAME"
     # Prints full report
     - time trivy --exit-code 0 --cache-dir .trivycache/ --no-progress "$FULL_IMAGE_NAME"
-    - # Notify about fixable vulnerabilities
+    # Notify about fixable vulnerabilities
     - node /app/main.js -f "$CI_PROJECT_DIR/gl-container-scanning-report.json" -e $ENVIRONMENT -c docker -i $CI_PROJECT_PATH
     # Fails on high and critical vulnerabilities
     - time trivy --exit-code 1 --ignore-unfixed --cache-dir .trivycache/ --severity MEDIUM,HIGH,CRITICAL --no-progress "$FULL_IMAGE_NAME"
