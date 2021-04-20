@@ -1,0 +1,52 @@
+{
+  "extends": [
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": [
+  ],
+  "env": {
+    "browser": false,
+    "jest": false
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+//      "jsx": true,
+      "experimentalObjectRestSpread": true,
+      "templateStrings": true
+    }
+  },
+  "settings": {
+    "import/extensions": [".js", ".ts"],
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      },
+      "typescript": {
+        "paths": ["src"]
+      }
+    }
+  },
+  "rules": {
+    "semi": ["error", "never"],
+    "template-curly-spacing": ["error", "never"],
+    "comma-dangle": ["error", "always-multiline"],
+    "max-len": "off",
+    "global-require": "off",
+    "indent": "error",
+    "object-curly-newline": 0,
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "eqeqeq": "error",
+    "max-classes-per-file": "warn",
+    "comma-spacing": "warn",
+    "no-return-await": "warn",
+    "object-curly-spacing": "warn",
+    "space-before-blocks": "warn",
+    "no-debugger": "warn"
+  }
+}

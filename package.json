@@ -1,0 +1,34 @@
+{
+  "name": "csi-red-alert",
+  "version": "1.0.0",
+  "description": "CSI Red Alert allows you to scan repositories and alert for vulnerabilites on a regular basis with CI/CD. Create Issues and noitify on Slack with a summary",
+  "main": "src/main.ts",
+  "repository": "git@github.com:codeflixde/csi-alert.git",
+  "author": "Codeflix GmbH <info@codeflix.com>",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "@types/argparse": "^2.0.5",
+    "@types/node": "^14.14.41",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "typescript": "^4.2.4"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:node/recommended"
+    ]
+  },
+  "scripts": {
+    "dev": "tsc && node build/main.js -i test -c test -e production -f ./gl-container-scanning-report.json",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "got": "^11.8.2"
+  }
+}

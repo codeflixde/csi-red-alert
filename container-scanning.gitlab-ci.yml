@@ -1,0 +1,35 @@
+variables:
+    TRIVY_USERNAME: "$CI_REGISTRY_USER"
+    TRIVY_PASSWORD: "$CI_REGISTRY_PASSWORD"
+    TRIVY_AUTH_URL: "$CI_REGISTRY"
+    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    ENVIRONMENT: $CI_COMMIT_REF_SLUG
+    ISSUE_ACCESS_TOKEN: $CI_ISSUE_TOKEN
+    SLACK_TOKEN: $CI_SLACK_TOKEN
+
+.container-scanning:
+  image:
+    name: codeflixde/csi-red-alert:latest
+    entrypoint: [ "" ]
+  script:
+    - trivy --version
+    # cache cleanup is needed when scanning images with the same tags, it does not remove the database
+    - time trivy image --clear-cache
+    # update vulnerabilities db
+    - time trivy --download-db-only --no-progress --cache-dir .trivycache/
+    # Builds report and puts it in the default workdir $CI_PROJECT_DIR, so `artifacts:` can take it from there
+    - time trivy --exit-code 0 --cache-dir .trivycache/ --no-progress --format template --template "@/contrib/gitlab.tpl"
+        --output "$CI_PROJECT_DIR/gl-container-scanning-report.json" "$FULL_IMAGE_NAME"
+    # Prints full report
+    - time trivy --exit-code 0 --cache-dir .trivycache/ --no-progress "$FULL_IMAGE_NAME"
+    - # Notify about fixable vulnerabilities
+    - node /app/main.js -f "$CI_PROJECT_DIR/gl-container-scanning-report.json" -e $ENVIRONMENT -c docker -i $CI_PROJECT_PATH
+    # Fails on high and critical vulnerabilities
+    - time trivy --exit-code 1 --ignore-unfixed --cache-dir .trivycache/ --severity MEDIUM,HIGH,CRITICAL --no-progress "$FULL_IMAGE_NAME"
+  allow_failure: true
+  artifacts:
+    reports:
+      container_scanning: gl-container-scanning-report.json
+  cache:
+    paths:
+      - .trivycache/
