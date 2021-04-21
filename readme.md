@@ -16,12 +16,33 @@ What this tool does:
 4. Auto close issues if CVE for an environment is no longer present in the results.
 
 
-
 ## License
 CSI Red Alert is licensed under the GNU Affero General Public License version 3.
 
 ## Disclaimer
 Codeflix GmbH is not liable for third party content, tools or links available.
+
+## Example
+### Slack notifications
+Get notified on Slack via a Webhook Token about newly introduced vulnerabilities (managed through Gitlab Issues) for each component and environment.
+
+![](docs/SlackNotification.png)
+
+### Priorize labels, assign colors. Subscribe to labels.
+You can also differentiate between the environments.
+
+![](docs/PriorizeLabels.png)
+
+### Organize vulnerabilities through their severity in a Kanban style
+![](docs/IssueBoard.png)
+
+### Filter for issues, environments and more
+![](docs/WatchIssues.png)
+
+### Automatic issue closing on implementation
+The tool also handles automatic issue closing. If issue was closed but not resolved a new issue is created.
+
+![](docs/AutomaticCloseIssue.png)
 
 ## Supported Docker images and programming languages
 Please refer to [https://github.com/aquasecurity/trivy][trivy] for supported Docker images and programming languages.

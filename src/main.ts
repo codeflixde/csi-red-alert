@@ -34,6 +34,6 @@ import {notify} from "./notify";
         }
     }
     await notify(args.image, args.component, args.environment, newVulnerabilities)
-    await closeResolvedVulnerabilities(args.component,args.environment,vulnerabilityList.vulnerabilities)
+    await closeResolvedVulnerabilities(args.component, args.environment, vulnerabilityList.vulnerabilities)
     process.exit(0)
 })()
