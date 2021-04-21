@@ -40,7 +40,7 @@ You can also differentiate between the environments.
 ![](docs/WatchIssues.png)
 
 ### Automatic issue closing on implementation
-The tool also handles automatic issue closing. If issue was closed but not resolved a new issue is created.
+The tool also handles automatic issue closing. On the other hand, if an issue is closed, but not resolved, the tool will create a new issue.
 
 ![](docs/AutomaticCloseIssue.png)
 
